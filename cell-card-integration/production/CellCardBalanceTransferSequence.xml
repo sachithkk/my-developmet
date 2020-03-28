@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CellCardBalanceTransferSequence"
+    onError="CellCardErrorSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="json-eval($.distributor_id)"
+        name="distributor_id" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.subscriber)" name="subscriber"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.amount)" name="amount"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.transaction_id)"
+        name="transaction_id" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.timestamp)" name="timestamp"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.serviceEndpoint)"
+        name="serviceEndpoint" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <log>
+        <property expression="json-eval($)"
+            name="CELLCARDBALANCEtRANSFER" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+            {
+				"distributor_id":"$1",
+				"subscriber":"$2",
+				"amount":"$3",
+				"transaction_id":"$4",
+				"timestamp":"$5"
+			}
+        </format>
+        <args>
+            <arg evaluator="xml"
+                expression="get-property('distributor_id')" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('subscriber')" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('amount')" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml"
+                expression="get-property('transaction_id')" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('timestamp')" xmlns:ns="http://org.apache.synapse/xsd"/>
+        </args>
+    </payloadFactory>
+    <property expression="get-property('serviceEndpoint')"
+        name="uri.var.full" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <call blocking="true">
+        <endpoint key="bankingInterfaceEndPoint"/>
+    </call>
+    <log>
+        <property expression="json-eval($)" name="CELLCARDDDDDDDDDDDDD" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+		{
+			"data":{
+				"distributor_id":"$1",
+				"transaction_id":"$2",
+				"error_code":"$3",
+				"error_message":"$4",
+				"error_description":"$5",
+				"distributor_balance":"$6",
+				"subscriber":"$7",
+				"amount":$8,
+				"timestamp":"$9"
+			},
+			"meta":{
+				"server_correlation_id":"$10",
+				"apim_correlation_id":"$11"
+			}
+		}
+	</format>
+        <args>
+            <arg evaluator="json" expression="$.data.distributor_id"/>
+            <arg evaluator="json" expression="$.data.transaction_id"/>
+            <arg evaluator="json" expression="$.data.error_code"/>
+            <arg evaluator="json" expression="$.data.error_message"/>
+            <arg evaluator="json" expression="$.data.error_description"/>
+            <arg value="100"/>
+            <arg evaluator="json" expression="$.data.subscriber"/>
+            <arg evaluator="json" expression="$.data.amount"/>
+            <arg evaluator="json" expression="$.data.timestamp"/>
+            <arg evaluator="json" expression="$.meta.server_correlation_id"/>
+            <arg evaluator="json" expression="$.meta.apim_correlation_id"/>
+        </args>
+    </payloadFactory>
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="200"/>
+    <respond/>
+</sequence>

@@ -1,0 +1,240 @@
+{
+	"id": "d3309db8-b21f-8003-395d-c4b96a063457",
+	"name": "LOLC",
+	"description": "",
+	"order": [
+		"472f5c62-aa9f-361a-7ebf-6ed40d5c8088",
+		"878c6183-dbbe-3599-a65d-a772849d58fd",
+		"a14f6e62-3019-67fd-010a-d7f8e0b8b3a0",
+		"91d66ff0-0275-00dc-3b3b-673efff21b91",
+		"1a0ecdf6-fff4-1883-f5f8-9f7e6544e33e"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1578895922391,
+	"owner": "9344632",
+	"public": false,
+	"requests": [
+		{
+			"id": "1a0ecdf6-fff4-1883-f5f8-9f7e6544e33e",
+			"headers": "Authorization: Basic UVB0OXVNWENrVFFlYnZZdHNpZE9iTzQ3SkdVYTpBRzlRZTZUaEtSY2d6X1RYNW5QaUJNYk5GSGdh\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic UVB0OXVNWENrVFFlYnZZdHNpZE9iTzQ3SkdVYTpBRzlRZTZUaEtSY2d6X1RYNW5QaUJNYk5GSGdh",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://extmife.dialog.lk/extapi/api_admin_00001",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d3309db8-b21f-8003-395d-c4b96a063457",
+			"data": [
+				{
+					"key": "grant_type",
+					"value": "client_credentials",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "Token generation for the production environment",
+			"description": "Generated from a curl request: \ncurl -k -d \\\"grant_type=client_credentials\\\" \\\n\n        -H \\\"Authorization: Basic UVB0OXVNWENrVFFlYnZZdHNpZE9iTzQ3SkdVYTpBRzlRZTZUaEtSY2d6X1RYNW5QaUJNYk5GSGdh\\\" \\\n\n         'https://extmife.dialog.lk/extapi/api_admin_00001'",
+			"descriptionFormat": "html",
+			"time": 1578896165689,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "472f5c62-aa9f-361a-7ebf-6ed40d5c8088",
+			"headers": "Authorization: Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571\nContent-Type: application/json\nuserName: client_user\npassword: password\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "userName",
+					"value": "client_user",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://extmife.dialog.lk/extapi/api_software_0000320171129",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d3309db8-b21f-8003-395d-c4b96a063457",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Utility bill payment (CEB)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1578895995193,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"txType\":\"TX_AUBP\",\n\"agentAlias\":\"777335148\",\n\"agentPin\":1234,\n\"txAmount\":100.00,\n\"accountNumber\":\"4912037605\",\n\"agentnotificationSend\":true,\n\"requestId\":\"3r87039u12673476058\",\n\"refernceMobileNumber\":\"773335644\",\n\"channel\":\"WEB\",\n\"domain\":\"CEB\",\n\"txReference\":\"TxnRef773333878111\"\n}\n"
+		},
+		{
+			"id": "878c6183-dbbe-3599-a65d-a772849d58fd",
+			"headers": "Authorization: Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571\nContent-Type: application/json\nuserName: client_user\npassword: password\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "userName",
+					"value": "client_user",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://extmife.dialog.lk/extapi/api_software_0000320171129",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d3309db8-b21f-8003-395d-c4b96a063457",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Mobile bill payment",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1578896008007,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"txType\":\"TX_ATOB\",\n\"agentAlias\":\"777335148\",\n\"agentPin\":1234,\n\"txAmount\":10.00,\n\"accountNumber\":\"775687930\",\n\"agentnotificationSend\":true,\n\"requestId\":\"87656058\",\n\"refernceMobileNumber\":\"773335644\",\n\"channel\":\"WEB\",\n\"domain\":\"GSM\",\n\"txReference\":\"TxnRef773333878111\"\n}\n"
+		},
+		{
+			"id": "91d66ff0-0275-00dc-3b3b-673efff21b91",
+			"headers": "Authorization: Basic WDRobTdaWEtBdTNiQmtnZnpUNUVzcnRPUll3YToyYW5vTnRxZ0xWYlBVQlJ2d2V1Q2s4R2N6eFlh\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic WDRobTdaWEtBdTNiQmtnZnpUNUVzcnRPUll3YToyYW5vTnRxZ0xWYlBVQlJ2d2V1Q2s4R2N6eFlh",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://extmife.dialog.lk/extapi/api_admin_00001",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d3309db8-b21f-8003-395d-c4b96a063457",
+			"data": [
+				{
+					"key": "grant_type",
+					"value": "client_credentials",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "Token generation for the test environment",
+			"description": "Generated from a curl request: \ncurl -k -d \\\"grant_type=client_credentials\\\" \\\n\n        -H \\\"Authorization: Basic WDRobTdaWEtBdTNiQmtnZnpUNUVzcnRPUll3YToyYW5vTnRxZ0xWYlBVQlJ2d2V1Q2s4R2N6eFlh\\\" \\\n\n      'https://extmife.dialog.lk/extapi/api_admin_00001'",
+			"descriptionFormat": "html",
+			"time": 1578896083749,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "a14f6e62-3019-67fd-010a-d7f8e0b8b3a0",
+			"headers": "Authorization: Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571\nContent-Type: application/json\nuserName: client_user\npassword: password\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer 184fcbd2-2197-3cd3-bff9-3c9c113c9571",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "userName",
+					"value": "client_user",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://extmife.dialog.lk/extapi/api_software_0000320171129",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d3309db8-b21f-8003-395d-c4b96a063457",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Utility bill payment - LECO",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1578896024483,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"txType\":\"TX_AUBP\",\n\"agentAlias\":\"777335148\",\n\"agentPin\":1234,\n\"txAmount\":100.00,\n\"accountNumber\":\"1111111111\",\n\"agentnotificationSend\":true,\n\"requestId\":\"76547512673476058\",\n\"refernceMobileNumber\":\"773335644\",\n\"channel\":\"WEB\",\n\"domain\":\"LECO\",\n\"txReference\":\"TxnRef773333878111\"\n}\n"
+		}
+	]
+}

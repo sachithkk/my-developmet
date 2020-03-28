@@ -1,0 +1,514 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: IpayAPI
+host: api.ipay
+basePath: /api.ipay
+paths:
+  '/customer/{customerId}/productEnabledMerchants':
+    get:
+      description: Get product enabled merchants
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+          format: integer
+        - name: limit
+          in: query
+          description: Retrview merchants limit
+          required: true
+          type: integer
+          format: integer
+        - name: offset
+          in: query
+          description: Retrview merchants offset
+          required: true
+          type: integer
+          format: integer
+        - name: name
+          in: query
+          description: Merchant name
+          required: false
+          type: string
+          format: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/ProductEnabledMerchants'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/productEnabledMerchants/{merchantId}/products':
+    get:
+      description: Get All Enabled Products by Merchant
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: merchantId
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name: name
+          in: query
+          description: product name
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/MerchantProductListResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/productEnabledMerchants/{merchantId}/products/{productId}':
+    get:
+      description: Get Specific Product Details by Merchant and Product ID
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: merchantId
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name: productId
+          in: path
+          description: product ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description:  Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/MerchantProductResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/merchantOrders/purchase':
+    post:
+      description: Customer online order
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: onlineOrderRequest
+          in: body
+          description: Order create request
+          required: true
+          schema:
+            $ref: '#/definitions/OnlineOrderRequest'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                $ref: '#/definitions/OnlineOrderPurchaseResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/merchantOrders':
+    get:
+      description: Get customer orders
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: limit
+          in: query
+          description: Retrview customer orders limit
+          required: true
+          type: integer
+          format: integer
+        - name: offset
+          in: query
+          description: Retrview customer orders offset
+          required: true
+          type: integer
+          format: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/CustomerOrderResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/merchantOrders/{orderId}':
+    get:
+      description: Get customer order by id
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: orderId
+          in: path
+          description: order ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                $ref: '#/definitions/CustomerOrderDetailsResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/merchants/{id}/customerOrders':
+    get:
+      description: Get All Merchant Orders
+      parameters:
+        - name: id
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name: limit
+          in: query
+          description: merchants order limit
+          required: true
+          type: integer
+        - name: offset
+          in: query
+          description: merchants order offset
+          required: true
+          type: integer
+        - name: status
+          in: query
+          description: Order status
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/MerchantOrderResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/merchants/{id}/customerOrders/{orderId}':
+    get:
+      description: Get merchant order details
+      parameters:
+        - name: id
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name:
+          in: path
+          description: order ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                $ref: '#/definitions/MerchantOrderDetailsResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    put:
+      description: Accept or Reject order by Merchant
+      parameters:
+        - name: id
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name: orderId
+          in: path
+          description: order ID
+          required: true
+          type: integer
+        - name: actionRequest
+          in: body
+          description: action payload
+          required: true
+          schema:
+            $ref: '#/definitions/OnlineOrderMerchantActionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                properties:
+                  message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+definitions:
+  ProductEnabledMerchants:
+    type: object
+    properties:
+      totalProducts:
+        type: number
+        format: long
+      id:
+        type: integer
+      code:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      logoImagePath:
+        type: string
+      branchResponses:
+        type: array
+        items:
+          $ref: '#/definitions/MerchantBranch'     
+  MerchantProductResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      code:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      quantityMeasurement:
+        type: string
+      quantity:
+        type: string
+      price:
+        type: string
+      status:
+        type: string
+      imagePath:
+        type: string
+      deliveryCharge:
+        type: string
+      lastModifiedBy:
+        type: string
+      lastModifiedDate:
+        type: string
+      remark:
+        type: string
+  MerchantProductListResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      imagePath:
+        type: string
+  MerchantBranch:
+    type: object
+    properties:
+      id:
+        type: string
+      branchCode:
+        type: string
+      branchName:
+        type: string
+      addressLine1:
+        type: string
+      addressLine2:
+        type: string
+      city:
+        type: string
+      contactNo:
+        type: string
+      latitude:
+        type: string
+        format: float
+      longitude:
+        type: string
+        format: float
+      isDefault:
+        type: string
+  ItemsDetails:
+    type: object
+    properties:
+      productId:
+        type: integer
+      quantity:
+        type: string
+  OnlineOrderRequest:
+    type: object
+    properties:
+      totalAmount:
+        type: string
+      totalNoOfItem:
+        type: integer
+      deliveryAddress:
+        type: string
+      contactNo:
+        type: string
+      deliveryNote:
+        type: string
+      deliveryCharge:
+        type: string
+      merchantId:
+        type: integer
+      itemList:
+        type: array
+        items:
+          $ref: '#/definitions/ItemsDetails'
+  OnlineOrderPurchaseResponse:
+    type: object
+    properties:
+      orderId:
+        type: string
+      orderRef:
+        type: string
+  CustomerOrderResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      orderDate:
+        type: string
+      orderId:
+        type: string
+      totalAmount:
+        type: string
+      merchantName:
+        type: string
+      orderStatus:
+        type: string
+  CustomerOrderItem:
+    type: object
+    properties:
+      name:
+        type: string
+      quantity:
+        type: string
+      price:
+        type: string
+      amout:
+        type: string
+      quantityMeasurement:
+        type: string
+  CustomerOrderDetailsResponse:
+    type: object
+    properties:
+      deliveryCharge:
+        type: string
+      deliveryAddress:
+        type: string
+      customerContact:
+        type: string
+      customerOrderItems:
+        type: array
+        items:
+          $ref: '#/definitions/CustomerOrderItem'
+    allOf:
+      - $ref: '#/definitions/CustomerOrderResponse'
+  MerchantOrderResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      orderDate:
+        type: string
+      deliveryAddress:
+        type: string
+      totalAmount:
+        type: string
+      orderId:
+        type: string
+      quantity:
+        type: string
+      orderStatus:
+        type: string
+  MerchantOrderDetailsResponse:
+    type: object
+    properties:
+      deliveryCharge:
+        type: string
+      deliveryAddress:
+        type: string
+      customerContact:
+        type: string
+      customerName:
+        type: string
+      customerOrderItems:
+        type: array
+        items:
+          $ref: '#/definitions/CustomerOrderItem'
+    allOf:
+      - $ref: '#/definitions/MerchantOrderResponse'
+  OnlineOrderMerchantActionRequest:
+    type: object
+    properties:
+      action:
+        type: string
+  
+  

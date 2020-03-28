@@ -1,0 +1,210 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: IpayAPI
+host: api.ipay
+basePath: /api.ipay
+paths:
+  '/customer/{customerId}/ipayLoan':
+    post:
+      description: Request Loan
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: ipayLoanRequest
+          in: body
+          description: Loan request payload
+          schema:
+            $ref: '#/definitions/IpayLoanRequest'
+      responses:
+        '200':
+           description: Successful Response
+           schema:
+             title: IpayResponse
+             type: object
+             properties:
+               responseCode:
+                 type: string
+               responseObject:
+                 properties:
+                   message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    get:
+      description: Get iPay system defined loans
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/IpayLoanResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/ipayLoan/history':
+    get:
+      description: Get All Loans By customer
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: limit
+          in: query
+          description: Limit
+          required: false
+          type: integer
+        - name: offset
+          in: query
+          description: Offset
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/IpayLoanInfoResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/ipayLoan/count':
+    get:
+      description: Get Loan Count by Customer
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                properties:
+                  loanCount:
+                    type: integer
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/ipayLoan/sourceInfo':
+    get:
+      description: Get iPay loans source info
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/IpayLoanSourceInfoResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+definitions:	  
+  IpayLoanRequest:
+    type: object
+    properties:
+      loanId:
+        type: integer
+      name:
+        type: string
+      addresLine1:
+        type: string
+      addressLine2:
+        type: string
+      city:
+        type: string
+      mobile:
+        type: string
+      identityType:
+        type: string
+      identityNo:
+        type: string
+      requestedAmount:
+        type: string
+      knownedMedia:
+        type: string
+  IpayLoanInfoResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      status:
+        type: string
+      loanType:
+        type: string
+      createdDate:
+        type: string
+      referenceNum:
+        type: string
+      amount:
+        type: string
+      applicantName:
+        type: string
+  OtpResendResponse:
+    type: object
+    properties:
+      message: 
+        type: string
+      customerMobileNumber:
+        type: string
+  IpayLoanResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      loanCode:
+        type: string
+      description:
+        type: string
+      loanLogoPath:
+        type: string
+  IpayLoanSourceInfoResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      type:
+        type: string
+      description:
+        type: string
+    

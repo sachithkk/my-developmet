@@ -1,0 +1,31 @@
+curl -X POST \
+  http://localhost:8280/services/BankingServiceOAuth2Proxy \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -H 'postman-token: 31f462c2-1888-902d-4aed-06e26384a6d9' \
+  -d 'grant_type=client_credentials&client_id=M5Wldj1mFmuZecMl7D6nOmGtgNka&client_secret=XWYGXgPI0rRDn6afLqYw8TOmqOYa&scope=openid'
+  
+curl -X POST \
+  http://localhost:8280/services/BankAccountRegistrationProxyWOV \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: cbfd4471-059c-c20b-1a59-41540e9bbc46' \
+  -H 'Authorization: Bearer 03bc0d4c-351a-3c30-bc33-42bf1fb832ab' \
+  -d '{
+  "accountNo":"00210017789",
+  "bankCode":"6861",
+  "serviceEndpoint":"https://10.0.251.1:9443/iPay/ipayBankingModuleLOFC/1.0.0/bankingModule/tokens"
+}'
+
+
+curl -X PUT \
+  http://localhost:8280/services/BankAccountRegistrationCRUDProxy \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: cb28073b-cf77-64a1-2a21-d64b64da3965' \
+  -H 'Authorization: Bearer 03bc0d4c-351a-3c30-bc33-42bf1fb832ab' \
+  -d '{
+  "accountNo":"116861k47081i4pmmv8h615jnm2scise7789",
+  "bankCode":"6861",
+  "serviceEndpoint":"https://10.0.251.1:9443/iPay/ipayBankingModuleLOFC/1.0.0/bankingModule/tokens/2498"
+}'

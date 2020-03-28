@@ -1,0 +1,1 @@
+INSERT INTO ipay_setting (ipay_setting_key, ipay_setting_value) VALUES('ECHANNELLING_TEMPORARY_BOOKING_EXPIRE_TIME','5');

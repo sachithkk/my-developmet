@@ -1,0 +1,330 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: IpayAPI
+host: api.ipay
+basePath: /api.ipay
+paths:  
+  '/customer/{customerId}/billSplit':
+    post:
+      description: Create Bill Split By iPay Customer
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: billSplitCreateRequest
+          in: body
+          description: Booking complete request
+          schema:
+            $ref: '#/definitions/BillSplitCreateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: object
+                properties:
+                  message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    get:
+      description: Get Customer Created Bill Split
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/BillSplitResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/sendBillSplit/{billSplitId}/details':
+    get:
+      description: Get Customer Sent Bill Details
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: billSplitId
+          in: path
+          description: bill split ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                $ref: '#/definitions/BillSplitCustomerSentDetailResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/receivedBillSplit':
+    get:
+      description: Get Customer Received Bill Split
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                type: array
+                items:
+                  $ref: '#/definitions/BillSplitReceivedDataResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/receivedBillSplit/{billSplitId}/details/{detailId}':
+    get:
+      description: Get Customer received bill split Detail
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: billSplitId
+          in: path
+          description: bill split ID
+          required: true
+          type: integer
+        - name: detailId
+          in: path
+          description: bill split details ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description:
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                $ref: '#/definitions/BillSplitCustomerReceivedDetailResponse'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/billSplit/{detailId}':
+    put:
+      description: Customer Reject Received Bill Split
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name:
+          in: path
+          description: bill split ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description:
+          schema:
+            title: IpayResponse
+            type:
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                properties:
+                  message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  '/customer/{customerId}/billSplit/{billSplitId}':
+    delete:
+      description: Close Bill Split
+      parameters:
+        - name: customerId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+        - name: billSplitId
+          in: path
+          description: customer ID
+          required: true
+          type: integer
+      responses:
+        '200':
+           description:
+           schema:
+             title: IpayResponse
+             type:
+             properties:
+               responseCode:
+                 type: string
+               responseObject:
+                 properties:
+                   message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+definitions:
+  BillSplitCustomerInfo:
+    type: object
+    properties:
+      upId:
+        type: string
+      contributeAmount:
+        type: string
+  BillSplitCreateRequest:
+    type: object
+    properties:
+      billSplitCustomerInfos:
+        type: array
+        items:
+          $ref: '#/definitions/BillSplitCustomerInfo'
+      totalBillAmount:
+        type: string
+      billSharedType:
+        type: string
+      noOfSharedPeople:
+        type: string
+      comment:
+        type: string
+      billImagePath:
+        type: string
+      billName:
+        type: string
+  BillSplitResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      billCreatorId:
+        type: integer
+      billCreatorName:
+        type: string
+      totalBillAmout:
+        type: string
+      createdDate:
+        type: string
+      billImagePath:    
+        type: string
+      billName:
+        type: string
+      status:
+        type: string
+      comment:  
+        type: string
+  BillSplitCustomerSentDetailData:
+    type: object
+    properties:
+      id:
+        type: integer
+      billSplitCustomerReference:
+        type: string
+      status:
+        type: string
+      contributionAmount:
+        type: string
+      participantId:
+        type: integer
+      participantName:
+        type: string
+      phone:
+        type: string
+      billSplitId:
+        type: string
+      comment:
+        type: string
+  BillSplitCustomerSentDetailResponse:
+    type: object
+    properties:
+      creator:
+        $ref: '#/definitions/BillSplitResponse'
+      participant:
+        type: array
+        items:
+          $ref: '#/definitions/BillSplitCustomerSentDetailData'
+  BillSplitReceivedDataResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      billSplitCustomerReference:
+        type: string
+      status:
+        type: string
+      contributionAmount:
+        type: string
+      createdDate:
+        type: string
+      billSplitId:
+        type: integer
+      billCreatorName:
+        type: string
+      billImagePath:
+        type: string
+      billName:
+        type: string
+  BillSplitCustomerReservedOwnerDetailData:
+    type: object
+    properties:
+      id:
+        type: integer
+      billSplitCustomerReference:
+        type: string
+      status:
+        type: string
+      contributionAmount:
+        type: string
+      createdDate:
+        type: string
+      participantName:
+        type: string
+      billSplitId:
+        type: string
+      comment:
+        type: string
+  BillSplitCustomerReceivedDetailResponse:
+    type: object
+    properties:
+      creator:
+        $ref: '#/definitions/BillSplitResponse'
+      receivedOwner:
+        $ref: '#/definitions/BillSplitCustomerReservedOwnerDetailData'
+      participant:
+        type: array
+        items:
+          $ref: '#/definitions/BillSplitCustomerReservedOwnerDetailData'

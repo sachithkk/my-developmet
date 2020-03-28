@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="CellCardBalanceTransferProxy"
+       startOnLoad="true"
+       statistics="disable"
+       trace="disable"
+       transports="http,https">
+   <target inSequence="CellCardBalanceTransferSequence"
+           outSequence="CellCardBalanceTransferSequence">
+      <faultSequence/>
+   </target>
+   <description/>
+</proxy>
+                                
