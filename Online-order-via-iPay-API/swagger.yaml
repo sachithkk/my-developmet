@@ -307,6 +307,41 @@ paths:
                     type: string
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+  '/merchants/{id}/customerOrders/{orderId}/dispatch':
+    put:
+      description: Confirm Order dispatch
+      parameters:
+        - name: id
+          in: path
+          description: merchant ID
+          required: true
+          type: integer
+        - name: orderId
+          in: path
+          description: order ID
+          required: true
+          type: integer
+        - name: confirmationRequest
+          in: body
+          description: order dispatch confirmation request
+          required: true
+          schema:
+            $ref: '#/definitions/OrderDispatchConfirmationRequest'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            title: IpayResponse
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseObject:
+                properties:
+                  message:
+                    type: string
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
 definitions:
   ProductEnabledMerchants:
     type: object
@@ -510,5 +545,12 @@ definitions:
     properties:
       action:
         type: string
-  
-  
+  OrderDispatchConfirmationRequest:
+    type: object
+    properties:
+      delivererName:
+        type: string
+      confirmationPin:
+        type: string
+      delivererMobile:
+        type: string
