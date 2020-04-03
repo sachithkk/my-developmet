@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="EchannellingDoctorsSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="json-eval($.bookingChannel)"
+        name="bookingChannel" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.serviceEndpoint)"
+        name="serviceEndpoint" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <log>
+        <property expression="json-eval($)"
+            name="EEEEEEEEEEEEEEEEEEEEEEEEEEE" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+            {
+				"bookingChannel":"$1"
+			}
+        </format>
+        <args>
+            <arg evaluator="xml"
+                expression="get-property('bookingChannel')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+        </args>
+    </payloadFactory>
+    <property expression="get-property('serviceEndpoint')"
+        name="uri.var.full" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <call blocking="true">
+        <endpoint key="bankingInterfaceEndPoint"/>
+    </call>
+    <log>
+        <property expression="json-eval($)" name="EEEECHANNELE" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+			$1
+		</format>
+        <args>
+            <arg evaluator="json" expression="$" literal="false"/>
+        </args>
+    </payloadFactory>
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="200"/>
+    <respond/>
+</sequence>

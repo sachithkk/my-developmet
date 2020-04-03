@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="EchannellingNextAppointmentSequence"
+    onError="routingErrorSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="json-eval($.hosID)" name="hosID"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.docNo)" name="docNo"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.date)" name="date" scope="default"
+        type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.time)" name="time" scope="default"
+        type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.bookingChannel)"
+        name="bookingChannel" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.serviceEndpoint)"
+        name="serviceEndpoint" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <log>
+        <property expression="json-eval($)"
+            name="DOCTOR_AVAILABILITY_REQUEST" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+            {
+				"hosID":"$1",
+				"docNo":"$2",
+				"date":"$3",
+				"time":"$4",
+				"bookingChannel":"$5"
+			}
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('hosID')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('docNo')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('date')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('time')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml"
+                expression="get-property('bookingChannel')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+        </args>
+    </payloadFactory>
+    <property expression="get-property('serviceEndpoint')"
+        name="uri.var.full" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <call blocking="true">
+        <endpoint key="bankingInterfaceEndPoint"/>
+    </call>
+    <log>
+        <property expression="json-eval($)"
+            name="EEEECHANNELEAPPOINMENT" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+			$1
+		</format>
+        <args>
+            <arg evaluator="json" expression="$" literal="false"/>
+        </args>
+    </payloadFactory>
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="200"/>
+    <respond/>
+</sequence>

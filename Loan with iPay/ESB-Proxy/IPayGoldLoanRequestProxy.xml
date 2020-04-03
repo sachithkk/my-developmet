@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="IPayGoldLoanRequestProxy"
+       startOnLoad="true"
+       statistics="disable"
+       trace="disable"
+       transports="http,https">
+   <target>
+      <inSequence/>
+      <outSequence>
+         <send/>
+      </outSequence>
+      <faultSequence/>
+      <endpoint>
+         <address uri="https://apipoc.oasys.lk/lolc/ipayrequest/1.0"/>
+      </endpoint>
+   </target>
+   <description/>
+</proxy>
+                                

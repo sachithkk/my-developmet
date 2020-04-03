@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="EchannellingOAuth2Proxy"
+       startOnLoad="true"
+       statistics="disable"
+       trace="disable"
+       transports="http,https">
+   <target>
+      <inSequence/>
+      <outSequence>
+         <send/>
+      </outSequence>
+      <faultSequence/>
+      <endpoint>
+         <address uri="http://202.129.234.138/api/oauth/token"/>
+      </endpoint>
+   </target>
+   <description/>
+</proxy>
+                                

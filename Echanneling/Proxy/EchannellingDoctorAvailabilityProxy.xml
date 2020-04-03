@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="EchannellingDoctorAvailabilityProxy"
+       startOnLoad="true"
+       statistics="disable"
+       trace="disable"
+       transports="http,https">
+   <target inSequence="EchannellingDoctorAvailabilitySequence"
+           outSequence="EchannellingDoctorAvailabilitySequence">
+      <faultSequence/>
+   </target>
+   <description/>
+</proxy>
+                                

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="EchannellingSaveSequence" onError="routingErrorSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="json-eval($.deviceCode)" name="deviceCode"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.applicationId)"
+        name="applicationId" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.patient)" name="patient"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.sessionDetails)"
+        name="sessionDetails" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.payment)" name="payment"
+        scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="json-eval($.serviceEndpoint)"
+        name="serviceEndpoint" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <log>
+        <property expression="json-eval($)"
+            name="ECHANNELLING_TEMP_SAVE" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+            {
+				"deviceCode":"$1",
+				"applicationId":"$2",
+				"patient":$3,
+				"sessionDetails":$4,
+				"payment":$5
+			}
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('deviceCode')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml"
+                expression="get-property('applicationId')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('patient')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml"
+                expression="get-property('sessionDetails')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="get-property('payment')"
+                literal="false" xmlns:ns="http://org.apache.synapse/xsd"/>
+        </args>
+    </payloadFactory>
+    <property expression="get-property('serviceEndpoint')"
+        name="uri.var.full" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <call blocking="true">
+        <endpoint key="bankingInterfaceEndPoint"/>
+    </call>
+    <log>
+        <property expression="json-eval($)"
+            name="EEEECHANNELEAPPOINMENT" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+			$1
+		</format>
+        <args>
+            <arg evaluator="json" expression="$" literal="false"/>
+        </args>
+    </payloadFactory>
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="200"/>
+    <respond/>
+</sequence>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="EchannellingeErrorSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="get-property('axis2', 'HTTP_SC')"
+        name="status" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <filter regex="(404)" source="get-property('status')" xmlns:ns="http://org.apache.synapse/xsd">
+        <then>
+            <payloadFactory media-type="json">
+                <format>
+					{
+					"code":"$1",
+					"message":"$2"
+					}
+				</format>
+                <args>
+                    <arg literal="false" value="404"/>
+                    <arg literal="false" value="E-channelling Services Is Not Found"/>
+                </args>
+            </payloadFactory>
+            <property name="HTTP_SC" scope="axis2" type="STRING" value="404"/>
+            <respond/>
+        </then>
+        <else/>
+    </filter>
+    <filter regex="(202)" source="get-property('status')" xmlns:ns="http://org.apache.synapse/xsd">
+        <then>
+            <payloadFactory media-type="json">
+                <format>
+					{
+					"code":"$1",
+					"message":"$2"
+					}
+				</format>
+                <args>
+                    <arg literal="false" value="404"/>
+                    <arg literal="false" value="E-channelling Services Are Temporary Unavailable"/>
+                </args>
+            </payloadFactory>
+            <property name="HTTP_SC" scope="axis2" type="STRING" value="404"/>
+            <respond/>
+        </then>
+        <else/>
+    </filter>
+    <filter regex="(401)" source="get-property('axis2', 'HTTP_SC')" xmlns:ns="http://org.apache.synapse/xsd">
+        <then>
+            <payloadFactory media-type="json">
+                <format>
+					{
+					"code":"$1",
+					"message":"$2"
+					}
+				</format>
+                <args>
+                    <arg literal="false" value="401"/>
+                    <arg literal="false" value="Unauthorized, Invalid Access Token"/>
+                </args>
+            </payloadFactory>
+            <property name="HTTP_SC" scope="axis2" type="STRING" value="401"/>
+            <respond/>
+        </then>
+        <else/>
+    </filter>
+</sequence>
